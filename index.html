@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Роман // Учень Школи №141 "ОРТ" м. Києва & Дослідник Жолудів</title>
+  <meta name="description"
+    content="Персональний сайт-термінал Романа: учень 10 класу школи №141 ОРТ Київ, IT-ентузіаст та систематик колекції жолудів.">
+  <meta name="keywords" content="Роман, Школа 141 ОРТ Київ, Жолуді, Колекція жолудів, Quake terminal, IT, Біографія">
+  <meta name="author" content="Роман">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <!-- CRT Scanline Effect Overlay -->
+  <div class="crt-overlay"></div>
+
+  <!-- Background Canvas for Particles & Embers -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- TOP SYSTEM STATUS BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div class="status-group">
+        <div class="status-item">
+          <span class="status-indicator"></span>
+          <span>SYS_STATUS: <strong style="color: var(--green-status)">ONLINE</strong></span>
+        </div>
+        <div class="status-item">
+          <span>HOST: <strong>roman@ort141-kyiv.edu.ua</strong></span>
+        </div>
+        <div class="status-item">
+          <span>TIME: <span id="sys-time">--:--:--</span></span>
+        </div>
+      </div>
+      <div class="top-controls">
+        <button id="toggle-sound" class="toggle-btn active">[AUDIO: ON]</button>
+        <button id="toggle-crt" class="toggle-btn active">[CRT FX: ON]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="container header-content">
+      <a href="#overview" class="logo-brand">
+        <span class="logo-icon">🌰</span>
+        <div>
+          <span class="logo-text">ROMAN // SYS_CORE</span>
+          <span class="logo-sub">SCHOOL #141 "ORT" KYIV</span>
+        </div>
+      </a>
+
+      <button id="mobile-toggle" class="mobile-nav-toggle" aria-label="Toggle Navigation">☰</button>
+
+      <nav>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="#overview" class="nav-link active"><span class="nav-num">[1]</span> OVERVIEW</a></li>
+          <li><a href="#about" class="nav-link"><span class="nav-num">[2]</span> ABOUT_ME</a></li>
+          <li><a href="#database" class="nav-link"><span class="nav-num">[3]</span> ACORN_DB</a></li>
+          <li><a href="#clicker-game" class="nav-link"><span class="nav-num">[4]</span> GAME_HUD</a></li>
+          <li><a href="#field-log" class="nav-link"><span class="nav-num">[5]</span> FIELD_LOG</a></li>
+          <li><a href="#contact" class="nav-link"><span class="nav-num">[6]</span> CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: HERO TERMINAL CONSOLE & PROFILE -->
+    <section id="overview" class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+
+          <!-- Terminal Console Window -->
+          <div class="console-terminal">
+            <div class="terminal-header-bar">
+              <span class="terminal-title-text">QUAKE CONSOLE v3.6 // ROMAN_PROFILE.SYS</span>
+              <div class="terminal-window-buttons">
+                <span class="term-btn term-btn-close"></span>
+                <span class="term-btn term-btn-min"></span>
+                <span class="term-btn term-btn-max"></span>
+              </div>
+            </div>
+
+            <div id="terminal-body" class="terminal-body">
+              <pre class="ascii-art">
+.-----------------------------------------------------------------.
+|  ____   ___  __  __    _    _   _  //  ___  ____ _____  __  _   |
+| |  _ \ / _ \|  \/  |  / \  | \ | | // / _ \|  _ \_   _|/  |/ |  |
+| | |_) | | | | |\/| | / _ \ |  \| |// | | | | |_) || |  |  || |  |
+| |  _ <| |_| | |  | |/ ___ \| |\  |\\ | |_| |  _ < | |  |  || |  |
+| |_| \_\\___/|_|  |_/_/   \_\_| \_| \\ \___/|_| \_\|_|  |__||_|  |
+'-----------------------------------------------------------------'
+              </pre>
+            </div>
+
+            <!-- Terminal Command Prompt Input Bar -->
+            <div class="command-line-wrapper">
+              <span class="prompt-symbol">roman@ort141:~$</span>
+              <input type="text" id="command-input" class="command-input"
+                placeholder="Введіть 'help', 'bio', 'acorns', 'game'..." autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Hero Profile HUD Card -->
+          <div class="hud-box profile-card">
+            <div class="hud-corner-tl"></div>
+            <div class="hud-corner-tr"></div>
+            <div class="hud-corner-bl"></div>
+            <div class="hud-corner-br"></div>
+
+            <div class="profile-avatar-wrapper">
+              <img src="assets/hero_avatar.jpg" alt="Роман - Аватар" class="profile-avatar-img">
+              <div class="avatar-scanner-line"></div>
+            </div>
+
+            <div class="profile-name">РОМАН</div>
+            <div class="profile-tagline">[ 10-Й КЛАС // ШКОЛА №141 "ОРТ" ]</div>
+
+            <ul class="profile-stats-list">
+              <li class="stat-row">
+                <span class="stat-label">Місто:</span>
+                <span class="stat-val">Київ, Україна</span>
+              </li>
+              <li class="stat-row">
+                <span class="stat-label">Навчання:</span>
+                <span class="stat-val">Школа №141 "ОРТ"</span>
+              </li>
+              <li class="stat-row">
+                <span class="stat-label">Головне хобі:</span>
+                <span class="stat-val">Збирання жолудів 🌰</span>
+              </li>
+              <li class="stat-row">
+                <span class="stat-label">Збірків у базі:</span>
+                <span class="stat-val">482+ екземплярів</span>
+              </li>
+              <li class="stat-row">
+                <span class="stat-label">Спеціалізація:</span>
+                <span class="stat-val">IT & STEM</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 16px; width: 100%;">
+              <a href="#clicker-game" class="btn-quake btn-quake-gold btn-block">
+                [ГРАТИ В КЛІКЕР 🌰]
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SYS_INFO / ABOUT ME & SCHOOL #141 ORT -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [2] SYS_INFO // БІОГРАФІЯ ТА ШКОЛА №141 "ОРТ" М. КИЄВА
+            <span class="hud-title-badge">FILE_ID: #141-ORT</span>
+          </h2>
+
+          <div class="about-grid">
+            <!-- Left Column: Biography & Education -->
+            <div class="about-text">
+              <div class="school-card-body" style="margin-bottom: 20px;">
+                <div class="school-emblem">
+                  <img src="assets/school_ort.jpg" alt="Емблема Школи №141 ОРТ">
+                </div>
+                <div>
+                  <h3 style="color: var(--amber-primary); font-size: 1.1rem; margin-bottom: 4px;">Освітній комплекс №141
+                    "ОРТ" м. Києва</h3>
+                  <p style="font-size: 0.85rem; color: var(--green-status)">Спеціалізація: Інформаційні технології,
+                    математика, робототехніка</p>
+                </div>
+              </div>
+
+              <p>
+                Привіт! Мене звати <strong>Роман</strong>. Я навчаюся в <strong>10 класі школи №141 "ОРТ" м.
+                  Києва</strong>.
+                Моє життя поєднує захоплення сучасними цифровими технологіями (програмування, розробка веб-інтерфейсів)
+                із пристрасним інтересом до природничих наук та екології.
+              </p>
+
+              <div class="highlight-box">
+                <strong>💡 Головне хобі — систематичне збирання та дослідження жолудів:</strong><br>
+                Досліджую дубові гаї Києва (Голосіївський ліс, Ботанічний сад, Феофанія), класифікую види жолудів (Дуб
+                звичайний, Дуб червоний, Дуб кам'яний) та вивчаю умови їх збереження.
+              </div>
+
+              <p>
+                У школі №141 "ОРТ" я беру активну участь у STEM-проєктах, IT-олімпіадах та лабораторних дослідженнях,
+                поєднуючи IT-інструменти з біологічним моніторингом міської флори.
+              </p>
+            </div>
+
+            <!-- Right Column: Timeline of Milestones -->
+            <div>
+              <h3
+                style="color: var(--amber-primary); font-size: 1rem; margin-bottom: 16px; border-bottom: 1px dashed var(--border-amber); padding-bottom: 6px;">
+                TIMELINE // ДОСЯГНЕННЯ ТА ЕТАПИ
+              </h3>
+
+              <ul class="timeline-list">
+                <li class="timeline-item">
+                  <div class="timeline-year">2026 // ДОСІ</div>
+                  <div class="timeline-title">Учень 10 класу школи №141 "ОРТ" м. Києва</div>
+                  <div class="timeline-desc">Поглиблене вивчення програмування, веб-розробки та STEM-дисциплін.</div>
+                </li>
+
+                <li class="timeline-item">
+                  <div class="timeline-year">2025 // ОСІНЬ</div>
+                  <div class="timeline-title">Створення Бази Даних Жолудів Києва</div>
+                  <div class="timeline-desc">Каталогізація понад 400 екземплярів жолудів з різних куточків Київської
+                    області.</div>
+                </li>
+
+                <li class="timeline-item">
+                  <div class="timeline-year">2024 // ВЕСНА</div>
+                  <div class="timeline-title">Шкільний STEM-проєкт з Екології</div>
+                  <div class="timeline-desc">Дослідження впливу міського середовища на проростання дубів звичайних.
+                  </div>
+                </li>
+
+                <li class="timeline-item">
+                  <div class="timeline-year">2023 // ВЕРЕСЕНЬ</div>
+                  <div class="timeline-title">Початок захоплення збиранням жолудів</div>
+                  <div class="timeline-desc">Перша польова експедиція до Голосіївського лісу та знахідка рідкісних
+                    екземплярів.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ACORN DATABASE / MUSEUM -->
+    <section id="database" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [3] ACORN_DATABASE // ВІРТУАЛЬНИЙ МУЗЕЙ ЖОЛУДІВ
+            <span class="hud-title-badge">CATALOG_V2.1</span>
+          </h2>
+
+          <!-- Filter & Search Controls -->
+          <div class="filter-bar">
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">[УСІ ВИДИ]</button>
+              <button class="filter-btn" data-filter="common">[ДУБ ЗВИЧАЙНИЙ]</button>
+              <button class="filter-btn" data-filter="rare">[ДУБ ЧЕРВОНИЙ]</button>
+              <button class="filter-btn" data-filter="legendary">[ЗОЛОТІ АРТЕФАКТИ]</button>
+            </div>
+
+            <div class="search-box">
+              <span style="color: var(--amber-primary)">🔍</span>
+              <input type="text" id="acorn-search" class="search-input" placeholder="Пошук виду або локації...">
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div id="acorn-grid" class="acorn-grid">
+            <!-- Dynamic items rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CLICKER MINI-GAME (QUAKE ACORN COLLECTOR) -->
+    <section id="clicker-game" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [4] GAME_HUD // QUAKE ACORN COLLECTOR MINI-GAME
+            <span class="hud-title-badge" style="background: var(--gold-accent);">CLICKER_ENGINE</span>
+          </h2>
+
+          <div class="game-container">
+            <!-- Left Panel: Click Target & Score -->
+            <div class="game-hud-left">
+              <div class="game-score-card">
+                <div class="score-sub">ЗІБРАНО ЖОЛУДІВ:</div>
+                <div id="game-score" class="score-main">0</div>
+                <div class="score-sub">АВТОЗБІР: <span id="game-dps" style="color: var(--gold-accent)">0</span> / СЕК
+                </div>
+              </div>
+
+              <div id="acorn-click-target" class="acorn-target-area" title="Натисніть для збору жолудя!">
+                <img src="assets/acorn_golden.jpg" alt="Жолудь Клікер Target" class="acorn-target-img">
+              </div>
+
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                ⚡ Клікайте по магічному жолудю, збирайте врожай та купуйте термінальні апгрейди!
+              </p>
+            </div>
+
+            <!-- Right Panel: Upgrades List -->
+            <div>
+              <h3 style="color: var(--amber-primary); font-size: 1rem; margin-bottom: 12px;">
+                AVAILABLE UPGRADES // ТЕРМІНАЛЬНІ ПОКРАЩЕННЯ
+              </h3>
+              <div id="upgrades-container" class="upgrades-list">
+                <!-- Upgrades populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: FIELD LOG / EXPEDITION JOURNAL -->
+    <section id="field-log" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [5] FIELD_LOG // ЖУРНАЛ ПОЛЬОВИХ ЕКСПЕДИЦІЙ КИЄВА
+            <span class="hud-title-badge">GPS_TRACKS</span>
+          </h2>
+
+          <div class="field-grid">
+            <div class="field-log-card">
+              <div class="field-date">LOG_ENTRY #089 // 12 ЖОВТНЯ 2025</div>
+              <div class="field-location">📍 Голосіївський Ліс (Сектор В-4)</div>
+              <div class="field-body">
+                Знайдено урочище 200-річних дубів звичайних. Жолуді надзвичайно великі, масою до 6 грамів. Плюски
+                збереглися ідеально.
+              </div>
+            </div>
+
+            <div class="field-log-card">
+              <div class="field-date">LOG_ENTRY #094 // 28 ЖОВТНЯ 2025</div>
+              <div class="field-location">📍 Парк КПІ ім. Ігоря Сікорського</div>
+              <div class="field-body">
+                Збір екземплярів дуба червоного (Quercus rubra). Жолуді мають унікальну кулясту форму. Температура
+                повітря +11°C.
+              </div>
+            </div>
+
+            <div class="field-log-card">
+              <div class="field-date">LOG_ENTRY #102 // 05 ЛИСТОПАДА 2025</div>
+              <div class="field-location">📍 Парк "Феофанія"</div>
+              <div class="field-body">
+                Виявлено рідкісний екземпляр з відтінком щирого золота. Поповнення центральної експозиції віртуального
+                музею!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: TRANSMISSION FORM / CONTACT -->
+    <section id="contact" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [6] TRANSMIT_MESSAGE // ЗВОРОРТНИЙ ЗВ'ЯЗОК СИСТЕМИ
+            <span class="hud-title-badge">SECURE_CHANNEL</span>
+          </h2>
+
+          <div class="contact-grid">
+            <div>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Бажаєте обговорити навчальний проєкт, поділитися локацією цікавого дуба у Києві чи зв'язатися з Романом?
+                Заповніть форму нижче!
+              </p>
+
+              <div
+                style="font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                <div><strong style="color: var(--amber-primary)">Школа:</strong> Спеціалізована школа №141 "ОРТ" м.
+                  Києва</div>
+                <div><strong style="color: var(--amber-primary)">Клас:</strong> 10-й клас</div>
+                <div><strong style="color: var(--amber-primary)">Місто:</strong> м. Київ, Україна</div>
+                <div><strong style="color: var(--amber-primary)">Статус:</strong> <span
+                    style="color: var(--green-status)">Вільний до співпраці та нових знахідок</span></div>
+              </div>
+            </div>
+
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="input-name" class="form-label">Ваше ім'я / Call-Sign:</label>
+                <input type="text" id="input-name" class="form-control" placeholder="Введіть ім'я..." required>
+              </div>
+
+              <div class="form-group">
+                <label for="input-message" class="form-label">Повідомлення або координати дуба:</label>
+                <textarea id="input-message" class="form-control"
+                  placeholder="Напишіть ваші думки або інформацію про жолуді..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-quake btn-quake-green btn-block">
+                [TRANSMIT TO ROMAN 🛰️]
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DIALOG FOR INSPECTING SPECIMENS -->
+  <div id="acorn-modal" class="modal-overlay" aria-hidden="true">
+    <div class="hud-box modal-container">
+      <div class="hud-corner-tl"></div>
+      <div class="hud-corner-tr"></div>
+      <div class="hud-corner-bl"></div>
+      <div class="hud-corner-br"></div>
+
+      <button id="close-modal" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <h2 class="hud-title" style="font-size: 1.1rem; margin-bottom: 16px;">
+        [SPECIMEN_INSPECTOR] // ДЕТАЛЬНИЙ АНАЛІЗ
+      </h2>
+
+      <div id="modal-body-content">
+        <!-- Filled dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div>
+        <strong>РОМАН © 2026</strong> // Учень 10 класу школи №141 "ОРТ" м. Києва.
+      </div>
+      <div>
+        <span style="color: var(--green-status)">PURE HTML5 / CSS3 / VANILLA JS</span> (No Frameworks)
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
