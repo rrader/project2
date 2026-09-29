@@ -17,13 +17,26 @@ st.set_page_config(
 # Кешування завантаження даних
 @st.cache_data
 def load_data():
-    housing = fetch_california_housing(as_frame=True)
-    df = housing.frame
-    # Перейменуємо MedHouseVal для зручності
-    df = df.rename(columns={'MedHouseVal': 'Price ($100k)'})
-    return df, housing.DESCR
+    import os
+    # Перевірка наявності локального CSV (для stlite/Pyodide)
+    for path in ['california_housing.csv', './python/california_housing.csv', 'python/california_housing.csv']:
+        if os.path.exists(path):
+            df = pd.read_csv(path)
+            if 'MedHouseVal' in df.columns:
+                df = df.rename(columns={'MedHouseVal': 'Price ($100k)'})
+            return df
+            
+    # Якщо CSV немає, завантажуємо через sklearn
+    try:
+        housing = fetch_california_housing(as_frame=True)
+        df = housing.frame
+        df = df.rename(columns={'MedHouseVal': 'Price ($100k)'})
+        return df
+    except Exception as e:
+        st.error(f"Помилка завантаження даних: {e}")
+        raise e
 
-df, dataset_description = load_data()
+df = load_data()
 
 st.title("🏠 Аналіз та прогнозування вартості житла у Каліфорнії")
 st.markdown("Інтерактивний веб-додаток на **Streamlit** для дослідження даних та демонстрації роботи моделі **Лінійної Регресії** (`scikit-learn`).")

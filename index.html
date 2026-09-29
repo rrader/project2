@@ -59,10 +59,11 @@
         <ul id="nav-menu" class="nav-menu">
           <li><a href="#overview" class="nav-link active"><span class="nav-num">[1]</span> OVERVIEW</a></li>
           <li><a href="#about" class="nav-link"><span class="nav-num">[2]</span> ABOUT_ME</a></li>
-          <li><a href="#database" class="nav-link"><span class="nav-num">[3]</span> ACORN_DB</a></li>
-          <li><a href="#clicker-game" class="nav-link"><span class="nav-num">[4]</span> GAME_HUD</a></li>
-          <li><a href="#field-log" class="nav-link"><span class="nav-num">[5]</span> FIELD_LOG</a></li>
-          <li><a href="#contact" class="nav-link"><span class="nav-num">[6]</span> CONTACT</a></li>
+          <li><a href="#projects" class="nav-link"><span class="nav-num">[3]</span> PROJECTS</a></li>
+          <li><a href="#database" class="nav-link"><span class="nav-num">[4]</span> ACORN_DB</a></li>
+          <li><a href="#clicker-game" class="nav-link"><span class="nav-num">[5]</span> GAME_HUD</a></li>
+          <li><a href="#field-log" class="nav-link"><span class="nav-num">[6]</span> FIELD_LOG</a></li>
+          <li><a href="#contact" class="nav-link"><span class="nav-num">[7]</span> CONTACT</a></li>
         </ul>
       </nav>
     </div>
@@ -243,7 +244,46 @@
       </div>
     </section>
 
-    <!-- SECTION 3: ACORN DATABASE / MUSEUM -->
+    <!-- SECTION 3: PROJECTS / IT & ML PROJECTS -->
+    <section id="projects" class="section-padding">
+      <div class="container">
+        <div class="hud-box">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
+          <h2 class="hud-title">
+            [3] PROJECTS // IT ТА ML ПРОЄКТИ
+            <span class="hud-title-badge">STREAMLIT_LAB</span>
+          </h2>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <!-- Project Card 1: California Housing ML App -->
+            <div class="hud-box" style="background: rgba(10, 15, 25, 0.7); border: 1px solid var(--border-amber); padding: 20px;">
+              <h3 style="color: var(--amber-primary); font-size: 1.15rem; margin-bottom: 8px;">
+                🏠 California Housing — Лінійна Регресія
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">
+                Інтерактивна модель машинного навчання для аналізу та прогнозування вартості житла у Каліфорнії. Працює автономно у браузері завдяки <strong>stlite (WebAssembly)</strong>!
+              </p>
+
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;">
+                <span class="hud-title-badge" style="background: rgba(255, 170, 0, 0.2); color: var(--amber-primary);">Python 3.10</span>
+                <span class="hud-title-badge" style="background: rgba(0, 255, 204, 0.2); color: var(--green-status);">scikit-learn</span>
+                <span class="hud-title-badge" style="background: rgba(255, 75, 75, 0.2); color: #ff4b4b;">Streamlit / stlite</span>
+              </div>
+
+              <a href="python/p1.html" class="btn-quake btn-quake-gold" style="display: inline-block;">
+                [ВІДКРИТИ ПРОЄКТ (stlite) 🚀]
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: ACORN DATABASE / MUSEUM -->
     <section id="database" class="section-padding">
       <div class="container">
         <div class="hud-box">
@@ -253,7 +293,7 @@
           <div class="hud-corner-br"></div>
 
           <h2 class="hud-title">
-            [3] ACORN_DATABASE // ВІРТУАЛЬНИЙ МУЗЕЙ ЖОЛУДІВ
+            [4] ACORN_DATABASE // ВІРТУАЛЬНИЙ МУЗЕЙ ЖОЛУДІВ
             <span class="hud-title-badge">CATALOG_V2.1</span>
           </h2>
 
@@ -290,7 +330,7 @@
           <div class="hud-corner-br"></div>
 
           <h2 class="hud-title">
-            [4] GAME_HUD // QUAKE ACORN COLLECTOR MINI-GAME
+            [5] GAME_HUD // QUAKE ACORN COLLECTOR MINI-GAME
             <span class="hud-title-badge" style="background: var(--gold-accent);">CLICKER_ENGINE</span>
           </h2>
 
@@ -337,7 +377,7 @@
           <div class="hud-corner-br"></div>
 
           <h2 class="hud-title">
-            [5] FIELD_LOG // ЖУРНАЛ ПОЛЬОВИХ ЕКСПЕДИЦІЙ КИЄВА
+            [6] FIELD_LOG // ЖУРНАЛ ПОЛЬОВИХ ЕКСПЕДИЦІЙ КИЄВА
             <span class="hud-title-badge">GPS_TRACKS</span>
           </h2>
 
@@ -383,7 +423,7 @@
           <div class="hud-corner-br"></div>
 
           <h2 class="hud-title">
-            [6] TRANSMIT_MESSAGE // ЗВОРОРТНИЙ ЗВ'ЯЗОК СИСТЕМИ
+            [7] TRANSMIT_MESSAGE // ЗВОРОРТНИЙ ЗВ'ЯЗОК СИСТЕМИ
             <span class="hud-title-badge">SECURE_CHANNEL</span>
           </h2>
 

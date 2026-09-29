@@ -195,6 +195,7 @@ function initTerminalConsole() {
         appendLog(`  <span class="log-highlight">bio</span>       - Display Roman's student bio`);
         appendLog(`  <span class="log-highlight">school</span>    - School #141 "ORT" Kyiv specifications`);
         appendLog(`  <span class="log-highlight">acorns</span>    - List top acorn collection items`);
+        appendLog(`  <span class="log-highlight">projects</span>  - Open California Housing ML project`);
         appendLog(`  <span class="log-highlight">game</span>      - Launch acorn clicker focus`);
         appendLog(`  <span class="log-highlight">clear</span>     - Clear terminal buffer`);
         appendLog(`  <span class="log-highlight">matrix</span>    - Display matrix easter egg`);
@@ -212,6 +213,13 @@ function initTerminalConsole() {
 
       case 'acorns':
         appendLog(`<span class="log-success">ACORN DATABASE OVERVIEW:</span> 482+ specimens collected. Species include Quercus robur, Quercus rubra, and rare Golden Acorns.`);
+        break;
+
+      case 'projects':
+      case 'p1':
+      case 'ml':
+        appendLog(`<span class="log-success">[NAVIGATING]</span> Scrolling to IT & ML Projects...`);
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
         break;
 
       case 'game':
