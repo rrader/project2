@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenCV — Виявлення облич</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0e1117;
+      color: #f0f6fc;
+    }
+    .top-nav {
+      background: rgba(14, 17, 23, 0.95);
+      border-bottom: 1px solid #30363d;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .top-nav a {
+      color: #ffaa00;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 170, 0, 0.3);
+      border-radius: 6px;
+    }
+    .nav-title {
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+    .nav-title strong {
+      color: #f0f6fc;
+    }
+    #loading {
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .error-msg {
+      color: #ff4b4b;
+      max-width: 600px;
+    }
+    @media (max-width: 700px) {
+      .top-nav {
+        flex-wrap: wrap;
+      }
+      .nav-title {
+        order: 1;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <a href="../index.html#projects">← На головну</a>
+    <div class="nav-title"><strong>Проєкт 4</strong> // Виявлення облич OpenCV</div>
+    <a href="p3.html">Проєкт 3 (Canny) →</a>
+  </header>
+
+  <div id="root">
+    <div id="loading">
+      <h2>Завантаження OpenCV...</h2>
+      <p id="status-text">Підготовка моделі виявлення облич.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.js"></script>
+  <script>
+    const statusText = document.getElementById("status-text");
+    const cascadeUrl =
+      "https://raw.githubusercontent.com/opencv/opencv/4.x/data/haarcascades/haarcascade_frontalface_default.xml";
+
+    Promise.all([
+      fetch("./p4.py").then((response) => {
+        if (!response.ok) throw new Error("Не вдалося завантажити p4.py (HTTP " + response.status + ")");
+        return response.text();
+      }),
+      fetch(cascadeUrl).then((response) => {
+        if (!response.ok) throw new Error("Не вдалося завантажити модель облич (HTTP " + response.status + ")");
+        return response.text();
+      })
+    ])
+      .then(([pythonCode, cascadeXml]) => {
+        statusText.textContent = "Запуск Python та OpenCV...";
+        stlite.mount(
+          {
+            requirements: ["opencv-python", "numpy"],
+            entrypoint: "p4.py",
+            files: {
+              "p4.py": pythonCode,
+              "haarcascade_frontalface_default.xml": cascadeXml
+            }
+          },
+          document.getElementById("root")
+        );
+      })
+      .catch((error) => {
+        console.error("Помилка запуску проєкту:", error);
+        document.getElementById("root").innerHTML =
+          '<div id="loading"><div class="error-msg"><h3>Помилка завантаження</h3><p>' +
+          error.message +
+          '</p><p>Запустіть сторінку через HTTPS або локальний вебсервер: <code>python3 -m http.server 8000</code>.</p></div></div>';
+      });
+  </script>
+</body>
+</html>
