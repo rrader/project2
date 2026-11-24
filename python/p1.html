@@ -16,12 +16,64 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #0e1117;
     }
+    /* Top Navigation Header */
+    .top-nav {
+      background: rgba(14, 17, 23, 0.95);
+      border-bottom: 1px solid #30363d;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(8px);
+    }
+    .top-nav a {
+      color: #ffaa00;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 170, 0, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      background: rgba(255, 170, 0, 0.05);
+    }
+    .top-nav a:hover {
+      background: rgba(255, 170, 0, 0.15);
+      border-color: #ffaa00;
+      transform: translateY(-1px);
+    }
+    .nav-title {
+      font-size: 0.95rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-title strong {
+      color: #f0f6fc;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 75, 75, 0.15);
+      color: #ff4b4b;
+      border: 1px solid rgba(255, 75, 75, 0.3);
+    }
     #loading {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 80vh;
       color: #ffffff;
     }
     .spinner {
@@ -49,6 +101,24 @@
   </style>
 </head>
 <body>
+  <header class="top-nav">
+    <a href="../index.html#projects">
+      ← <span>Повернутися на головну</span>
+    </a>
+    <div class="nav-title">
+      <span class="badge">PROJECT 1</span>
+      <strong>California Housing</strong> // Регресія & Overfitting
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="p2.html">
+        <span>Проєкт 2 (Decision Tree) →</span>
+      </a>
+      <a href="p3.html">
+        <span>Проєкт 3 (OpenCV Canny) →</span>
+      </a>
+    </div>
+  </header>
+
   <div id="root">
     <div id="loading">
       <div class="spinner"></div>

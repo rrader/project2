@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дерево Прийняття Рішень — Прогноз Контрольної Роботи (stlite)</title>
+  <!-- Stlite CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0e1117;
+      color: #f0f6fc;
+    }
+    
+    /* Top Navigation Header */
+    .top-nav {
+      background: rgba(14, 17, 23, 0.95);
+      border-bottom: 1px solid #30363d;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(8px);
+    }
+    .top-nav a {
+      color: #ffaa00;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 170, 0, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      background: rgba(255, 170, 0, 0.05);
+    }
+    .top-nav a:hover {
+      background: rgba(255, 170, 0, 0.15);
+      border-color: #ffaa00;
+      transform: translateY(-1px);
+    }
+    .nav-title {
+      font-size: 0.95rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-title strong {
+      color: #f0f6fc;
+    }
+
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border-left-color: #ffaa00;
+      animation: spin 1s linear infinite;
+      margin-bottom: 18px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .error-msg {
+      color: #ff4b4b;
+      background: rgba(255, 75, 75, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ff4b4b;
+      max-width: 550px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(0, 255, 204, 0.15);
+      color: #00ffcc;
+      border: 1px solid rgba(0, 255, 204, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <a href="../index.html#projects">
+      ← <span>Повернутися на головну</span>
+    </a>
+    <div class="nav-title">
+      <span class="badge">PROJECT 2</span>
+      <strong>Дерево Прийняття Рішень</strong> // DecisionTreeClassifier
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="p1.html">
+        <span>← Проєкт 1 (Housing)</span>
+      </a>
+      <a href="p3.html">
+        <span>Проєкт 3 (OpenCV Canny) →</span>
+      </a>
+    </div>
+  </header>
+
+  <div id="root">
+    <div id="loading">
+      <div class="spinner"></div>
+      <h2>Завантаження Streamlit (stlite / Pyodide)...</h2>
+      <p style="color: #8b949e; max-width: 480px; font-size: 0.95rem;">
+        Завантажуються WebAssembly-компоненти scikit-learn, pandas, numpy, matplotlib та вихідний код <strong>p2.py</strong>...
+      </p>
+    </div>
+  </div>
+
+  <!-- Stlite JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.js"></script>
+  <script>
+    fetch("./p2.py")
+      .then((res) => {
+        if (!res.ok) throw new Error("Не вдалося завантажити p2.py (HTTP " + res.status + ")");
+        return res.text();
+      })
+      .then((pyCode) => {
+        stlite.mount(
+          {
+            requirements: ["scikit-learn", "pandas", "numpy", "matplotlib"],
+            entrypoint: "p2.py",
+            files: {
+              "p2.py": pyCode
+            }
+          },
+          document.getElementById("root")
+        );
+      })
+      .catch((err) => {
+        console.error("Помилка завантаження файлу p2.py:", err);
+        document.getElementById("root").innerHTML = `
+          <div id="loading">
+            <div class="error-msg">
+              <h3>❌ Помилка завантаження p2.py</h3>
+              <p>${err.message}</p>
+              <small>Переконайтеся, що файл p2.py знаходиться в папці python/ поруч із p2.html.</small>
+            </div>
+          </div>
+        `;
+      });
+  </script>
+</body>
+</html>

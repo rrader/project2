@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenCV Canny — Підрахунок Кількості Фігур (stlite)</title>
+  <!-- Stlite CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0e1117;
+      color: #f0f6fc;
+    }
+
+    /* Top Navigation Header */
+    .top-nav {
+      background: rgba(14, 17, 23, 0.95);
+      border-bottom: 1px solid #30363d;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(8px);
+    }
+    .top-nav a {
+      color: #ffaa00;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 170, 0, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      background: rgba(255, 170, 0, 0.05);
+    }
+    .top-nav a:hover {
+      background: rgba(255, 170, 0, 0.15);
+      border-color: #ffaa00;
+      transform: translateY(-1px);
+    }
+    .nav-title {
+      font-size: 0.95rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-title strong {
+      color: #f0f6fc;
+    }
+
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border-left-color: #00ffcc;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .error-msg {
+      color: #ff4b4b;
+      background: rgba(255, 75, 75, 0.1);
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #ff4b4b;
+      max-width: 580px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(0, 255, 204, 0.15);
+      color: #00ffcc;
+      border: 1px solid rgba(0, 255, 204, 0.3);
+    }
+    .status-steps {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Верхня навігаційна панель -->
+  <header class="top-nav">
+    <a href="../index.html#projects">
+      ← <span>Повернутися на головну</span>
+    </a>
+    <div class="nav-title">
+      <span class="badge">PROJECT 3</span>
+      <strong>OpenCV Canny</strong> // Підрахунок Кількості Фігур
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="p2.html">
+        <span>← Проєкт 2 (Decision Tree)</span>
+      </a>
+      <a href="p1.html">
+        <span>Проєкт 1 (Housing) →</span>
+      </a>
+    </div>
+  </header>
+
+  <div id="root">
+    <div id="loading">
+      <div class="spinner"></div>
+      <h2 style="font-size: 1.4rem; color: #f0f6fc; margin-bottom: 8px;">
+        Завантаження OpenCV Canny у браузері (stlite / Pyodide)...
+      </h2>
+      <p style="color: #8b949e; max-width: 520px; font-size: 0.95rem; line-height: 1.5;">
+        Завантажуються WebAssembly-модулі <strong>opencv-python</strong>, <strong>numpy</strong>, <strong>matplotlib</strong>,
+        а також вихідне зображення <strong>figures.png</strong> та скрипт <strong>p3.py</strong>.
+      </p>
+      <div id="status-text" class="status-steps">
+        ⏳ Підготовка віртуальної файлової системи...
+      </div>
+    </div>
+  </div>
+
+  <!-- Stlite JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.73.0/build/stlite.js"></script>
+  <script>
+    const statusText = document.getElementById("status-text");
+
+    // Вбудована base64 резервна копія figures.png (на випадок відкриття через file:// без веб-сервера)
+    const EMBEDDED_FIGURES_PNG_B64 = 
+      "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" +
+      "YII=";
+
+    // Допоміжна функція декодування base64 у Uint8Array
+    function b64ToUint8(b64) {
+      const bin = atob(b64);
+      const len = bin.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = bin.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    // Завантаження p3.py
+    statusText.innerText = "⏳ Завантаження p3.py...";
+    const pyPromise = fetch("./p3.py").then((res) => {
+      if (!res.ok) throw new Error("Не вдалося завантажити p3.py (HTTP " + res.status + ")");
+      return res.text();
+    });
+
+    // Завантаження figures.png з fallback на вбудований base64
+    statusText.innerText = "⏳ Завантаження тестового зображення figures.png...";
+    const imgPromise = fetch("./figures.png")
+      .then((res) => {
+        if (!res.ok) throw new Error("Fetch failed");
+        return res.arrayBuffer().then(ab => new Uint8Array(ab));
+      })
+      .catch((e) => {
+        console.warn("Мережевий запит figures.png не вдався (можливо, локальний запуск file://). Використовуємо вбудований base64:", e);
+        return b64ToUint8(EMBEDDED_FIGURES_PNG_B64);
+      });
+
+    Promise.all([pyPromise, imgPromise])
+      .then(([pyCode, imgBytes]) => {
+        statusText.innerText = "🚀 Монтування Streamlit / OpenCV WebAssembly...";
+        const files = {
+          "p3.py": pyCode,
+          "figures.png": imgBytes,
+          "python/figures.png": imgBytes
+        };
+
+        stlite.mount(
+          {
+            requirements: ["opencv-python", "numpy"],
+            entrypoint: "p3.py",
+            files: files
+          },
+          document.getElementById("root")
+        );
+      })
+      .catch((err) => {
+        console.error("Помилка ініціалізації p3.py:", err);
+        document.getElementById("root").innerHTML = `
+          <div id="loading">
+            <div class="error-msg">
+              <h3>❌ Помилка завантаження p3.py</h3>
+              <p>${err.message}</p>
+              <div style="font-size: 0.85rem; text-align: left; margin-top: 15px; color: #f0f6fc; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px;">
+                💡 <strong>Порада:</strong> Сучасні браузери блокують <code>fetch()</code> для локальних файлів з міркувань безпеки при відкритті напряму <code>file:///...</code>.<br><br>
+                Щоб запустити проєкт локально:<br>
+                1. <code>cd /Users/roma/Documents/Project2</code><br>
+                2. <code>python3 -m http.server 8000</code><br>
+                3. Відкрийте <a href="http://localhost:8000/python/p3.html" style="color: #ffaa00;">http://localhost:8000/python/p3.html</a><br>
+                Або запустіть у терміналі: <code>streamlit run python/p3.py</code>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+  </script>
+</body>
+</html>
